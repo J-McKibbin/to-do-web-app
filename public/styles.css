@@ -1,0 +1,17 @@
+body{
+    text-align: center !important;
+}
+
+#task-list{
+    padding:0;
+    list-style: none;
+}
+
+.task-item{
+    margin:10px;
+}
+
+#task-input-container{
+    width:50%;
+    margin:auto;
+}
