@@ -11,6 +11,19 @@ function loadTasks(){
         const taskList = document.getElementById('task-list');
         taskList.innerHTML = "";
 
+        //sorting the tasks by false (incomplete) first then true (completed)
+        //this sort algorithm will loop through the tasks and subtract one task from the other
+        //the result will sort the tasks depending on the result of the calculation - negative results are placed first
+        //then positive
+        tasks.sort((a, b) => {
+            return a.completed - b.completed;
+            //if a.completed = false (0) and b.completed = true (1)
+            //calc will be 0 - 1 = -1
+            //so a is placed first
+            //if a.completed = true (1) and b.completed = false(0)
+            //this is 1 - 0 = 1 therefore b is put first
+        });
+
         tasks.forEach((task) =>{
             const li = document.createElement('li');
             taskList.appendChild(li);
@@ -18,6 +31,7 @@ function loadTasks(){
 
             const checkBox = document.createElement('input');
             checkBox.type = 'checkbox';
+            checkBox.className = 'checkBox';
             li.appendChild(checkBox);
             //if the task is completed then the checkbox is checked
             checkBox.checked = task.completed === true;
@@ -46,6 +60,7 @@ function loadTasks(){
             .then(response => response.json())
             .then(data => {
                 console.log('Task updated:', data); // Log success message
+                loadTasks();
             })
             .catch(error => {
                 console.error('Error updating task:', error); // Log any errors

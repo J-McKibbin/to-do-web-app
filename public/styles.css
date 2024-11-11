@@ -2,16 +2,45 @@ body{
     text-align: center !important;
 }
 
+#task-list-container{
+    display:flex;
+    justify-content: center;
+}
+
 #task-list{
     padding:0;
     list-style: none;
+    width:20%;
+    display: flex;
+    flex-direction: column;
 }
 
 .task-item{
     margin:10px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #task-input-container{
     width:50%;
     margin:auto;
+}
+
+.checkBox{
+    width:20px;
+    height:20px;
+    margin-right:10px;
+}
+
+@media only screen and (max-width:900px){
+    #task-list{
+        width:45%;
+    }
+}
+
+@media only screen and (max-width:500px){
+    #task-list{
+        width:60%;
+    }
 }
