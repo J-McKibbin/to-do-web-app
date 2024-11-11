@@ -19,7 +19,8 @@ function loadTasks(){
             const checkBox = document.createElement('input');
             checkBox.type = 'checkbox';
             li.appendChild(checkBox);
-            
+            //if the task is completed then the checkbox is checked
+            checkBox.checked = task.completed === true;
             // li.textContent = task.task_title + "   ";
             const taskTitle = document.createElement('span'); 
             taskTitle.textContent = task.task_title; 
@@ -31,6 +32,25 @@ function loadTasks(){
             button.addEventListener('click', () => deleteTask(task._id));
             li.appendChild(button);
 
+                    //add event listener to the checkbox to send put request to db
+        checkBox.addEventListener('change', (event) => {
+            //accessing the data id containing the db id of the task
+            const taskId = li.getAttribute('data-id')
+            const completed = event.target.checked;
+            //send fetch request to update the task item
+            fetch(`/tasks/${taskId}`,{
+                method:'PUT',
+                body:JSON.stringify({completed: completed}),
+                headers: {'Content-type':'application/json'}
+            })//fetch request
+            .then(response => response.json())
+            .then(data => {
+                console.log('Task updated:', data); // Log success message
+            })
+            .catch(error => {
+                console.error('Error updating task:', error); // Log any errors
+            });
+        })//event listener
             
         })
     })
@@ -112,11 +132,33 @@ function createTask(){
         button.innerHTML = "Delete";
         button.addEventListener('click', () => deleteTask(task._id));
         li.appendChild(button);
-    })
+
+        //add event listener to the checkbox to send put request to db
+        checkBox.addEventListener('change', (event) => {
+            //accessing the data id containing the db id of the task
+            const taskId = li.getAttribute('data-id')
+            const completed = event.target.checked;
+            //send fetch request to update the task item
+            fetch(`/tasks/${taskId}`,{
+                method:'PUT',
+                body:JSON.stringify({completed: completed}),
+                headers: {'Content-type':'application/json'}
+            })//fetch request
+            .then(response => response.json())
+            .then(data => {
+                console.log('Task updated:', data); // Log success message
+            })
+            .catch(error => {
+                console.error('Error updating task:', error); // Log any errors
+            });
+        })//event listener
+    })//promise
     .catch((error) => {
         console.error("Error creating task:", error); // Log any errors
     });
-}
+}//create task function
+
+//handle checkbox being updated
 
 
 const createTaskBtn = document.getElementById('submit-input');

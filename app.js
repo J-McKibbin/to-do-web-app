@@ -105,12 +105,11 @@ app.put('/tasks/:id',(req, res) =>{
     }
     console.log("Task Updated", updatedTask); // Log the updated task
     res.status(200).json({ message: "Task updated successfully", updatedTask }); // Send the updated task in response
-})
+  })
 .catch((error) => {
     console.error('Error updating task:', error); // Log error for debugging
     res.status(500).json({ error: "Error updating task", details: error });
-});
-
+  });
 });
 
 
