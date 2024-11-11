@@ -133,6 +133,7 @@ function createTask(){
         //creating checkbox for completing tasks and appending to start of li
         const checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
+        checkBox.className = 'checkBox';
         li.appendChild(checkBox);
 
         //creating span so the task title can be placed after the checkbox
